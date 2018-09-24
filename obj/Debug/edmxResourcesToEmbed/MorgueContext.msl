@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище MorgueModelContainer" CdmEntityContainer="MorgueEntities">
+    <EntitySetMapping Name="BodyParts">
+      <EntityTypeMapping TypeName="MorgueModel.BodyPart">
+        <MappingFragment StoreEntitySet="BodyParts">
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="ownerID" ColumnName="ownerID" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BodyPartsInfoes">
+      <EntityTypeMapping TypeName="MorgueModel.BodyPartsInfo">
+        <MappingFragment StoreEntitySet="BodyPartsInfo">
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="shelfLife" ColumnName="shelfLife" />
+          <ScalarProperty Name="fragility" ColumnName="fragility" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="MorgueModel.Patient">
+        <MappingFragment StoreEntitySet="Patients">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="secondName" ColumnName="secondName" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="deathDate" ColumnName="deathDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
