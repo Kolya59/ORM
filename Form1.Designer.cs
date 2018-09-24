@@ -51,8 +51,12 @@
             this.dgvParts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvParts.Location = new System.Drawing.Point(12, 32);
             this.dgvParts.Name = "dgvParts";
-            this.dgvParts.Size = new System.Drawing.Size(345, 150);
+            this.dgvParts.Size = new System.Drawing.Size(362, 150);
             this.dgvParts.TabIndex = 1;
+            this.dgvParts.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvPartsCellValueChanged);
+            this.dgvParts.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DgvPartsDataError);
+            this.dgvParts.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DgvPartsRowValidating);
+            this.dgvParts.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DgvPartsUserDeletingRow);
             // 
             // label2
             // 
@@ -69,14 +73,18 @@
             this.dgvInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInfo.Location = new System.Drawing.Point(12, 208);
             this.dgvInfo.Name = "dgvInfo";
-            this.dgvInfo.Size = new System.Drawing.Size(345, 150);
+            this.dgvInfo.Size = new System.Drawing.Size(362, 150);
             this.dgvInfo.TabIndex = 1;
+            this.dgvInfo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvInfoCellValueChanged);
+            this.dgvInfo.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DgvInfoDataError);
+            this.dgvInfo.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DgvInfoRowValidating);
+            this.dgvInfo.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DgvInfoUserDeletingRow);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 375);
+            this.ClientSize = new System.Drawing.Size(386, 375);
             this.Controls.Add(this.dgvInfo);
             this.Controls.Add(this.dgvParts);
             this.Controls.Add(this.label2);

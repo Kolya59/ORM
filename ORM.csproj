@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EFlogger.EntityFramework6, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EFlogger-For6.0.4.1\lib\EFlogger.EntityFramework6.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -41,6 +44,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BodyPart.cs">
+      <DependentUpon>MorgueContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BodyPartsInfo.cs">
+      <DependentUpon>MorgueContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="CalendarColumn.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -59,31 +70,24 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\BodyPart.cs" />
-    <Compile Include="Models\BodyPartsInfo.cs" />
-    <Compile Include="Models\Building.cs" />
-    <Compile Include="Models\BuildingInfo.cs" />
-    <Compile Include="Models\ListOfBuilding.cs" />
-    <Compile Include="Models\ListOfPosition.cs" />
-    <Compile Include="Models\Mapping\BodyPartMap.cs" />
-    <Compile Include="Models\Mapping\BodyPartsInfoMap.cs" />
-    <Compile Include="Models\Mapping\BuildingInfoMap.cs" />
-    <Compile Include="Models\Mapping\BuildingMap.cs" />
-    <Compile Include="Models\Mapping\ListOfBuildingMap.cs" />
-    <Compile Include="Models\Mapping\ListOfPositionMap.cs" />
-    <Compile Include="Models\Mapping\MorgueMap.cs" />
-    <Compile Include="Models\Mapping\OperationMap.cs" />
-    <Compile Include="Models\Mapping\PatientMap.cs" />
-    <Compile Include="Models\Mapping\PositionMap.cs" />
-    <Compile Include="Models\Mapping\StuffMap.cs" />
-    <Compile Include="Models\Mapping\sysdiagramMap.cs" />
-    <Compile Include="Models\Morgue.cs" />
-    <Compile Include="Models\MorgueContext.cs" />
-    <Compile Include="Models\Operation.cs" />
-    <Compile Include="Models\Patient.cs" />
-    <Compile Include="Models\Position.cs" />
-    <Compile Include="Models\Stuff.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="MorgueContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MorgueContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MorgueContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MorgueContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MorgueContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MorgueContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Patient.cs">
+      <DependentUpon>MorgueContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -98,6 +102,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EntityDeploy Include="MorgueContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MorgueContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="MorgueContext.edmx.diagram">
+      <DependentUpon>MorgueContext.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -113,6 +124,21 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MorgueContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MorgueContext.Context.cs</LastGenOutput>
+      <DependentUpon>MorgueContext.edmx</DependentUpon>
+    </Content>
+    <Content Include="MorgueContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MorgueContext.edmx</DependentUpon>
+      <LastGenOutput>MorgueContext.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

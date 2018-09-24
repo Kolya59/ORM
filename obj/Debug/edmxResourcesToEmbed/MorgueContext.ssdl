@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище MorgueModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BodyParts">
+    <Key>
+      <PropertyRef Name="type" />
+      <PropertyRef Name="ownerID" />
+    </Key>
+    <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ownerID" Type="int" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BodyPartsInfo">
+    <Key>
+      <PropertyRef Name="type" />
+    </Key>
+    <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="shelfLife" Type="int" Nullable="false" />
+    <Property Name="fragility" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patients">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="secondName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="false" />
+    <Property Name="deathDate" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_BodyParts_BodyPartsInfo">
+    <End Role="BodyPartsInfo" Type="Self.BodyPartsInfo" Multiplicity="1" />
+    <End Role="BodyParts" Type="Self.BodyParts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BodyPartsInfo">
+        <PropertyRef Name="type" />
+      </Principal>
+      <Dependent Role="BodyParts">
+        <PropertyRef Name="type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BodyParts_Patients">
+    <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+    <End Role="BodyParts" Type="Self.BodyParts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BodyParts">
+        <PropertyRef Name="ownerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище MorgueModelContainer">
+    <EntitySet Name="BodyParts" EntityType="Self.BodyParts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BodyPartsInfo" EntityType="Self.BodyPartsInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BodyParts_BodyPartsInfo" Association="Self.FK_BodyParts_BodyPartsInfo">
+      <End Role="BodyPartsInfo" EntitySet="BodyPartsInfo" />
+      <End Role="BodyParts" EntitySet="BodyParts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BodyParts_Patients" Association="Self.FK_BodyParts_Patients">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="BodyParts" EntitySet="BodyParts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

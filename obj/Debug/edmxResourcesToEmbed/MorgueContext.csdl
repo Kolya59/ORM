@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MorgueModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BodyPart">
+    <Key>
+      <PropertyRef Name="type" />
+      <PropertyRef Name="ownerID" />
+    </Key>
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ownerID" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="BodyPartsInfo" Relationship="Self.FK_BodyParts_BodyPartsInfo" FromRole="BodyParts" ToRole="BodyPartsInfo" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_BodyParts_Patients" FromRole="BodyParts" ToRole="Patients" />
+  </EntityType>
+  <EntityType Name="BodyPartsInfo">
+    <Key>
+      <PropertyRef Name="type" />
+    </Key>
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="shelfLife" Type="Int32" Nullable="false" />
+    <Property Name="fragility" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="BodyParts" Relationship="Self.FK_BodyParts_BodyPartsInfo" FromRole="BodyPartsInfo" ToRole="BodyParts" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="secondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <Property Name="deathDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="BodyParts" Relationship="Self.FK_BodyParts_Patients" FromRole="Patients" ToRole="BodyParts" />
+  </EntityType>
+  <Association Name="FK_BodyParts_BodyPartsInfo">
+    <End Role="BodyPartsInfo" Type="Self.BodyPartsInfo" Multiplicity="1" />
+    <End Role="BodyParts" Type="Self.BodyPart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BodyPartsInfo">
+        <PropertyRef Name="type" />
+      </Principal>
+      <Dependent Role="BodyParts">
+        <PropertyRef Name="type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BodyParts_Patients">
+    <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+    <End Role="BodyParts" Type="Self.BodyPart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BodyParts">
+        <PropertyRef Name="ownerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MorgueEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BodyParts" EntityType="Self.BodyPart" />
+    <EntitySet Name="BodyPartsInfoes" EntityType="Self.BodyPartsInfo" />
+    <EntitySet Name="Patients" EntityType="Self.Patient" />
+    <AssociationSet Name="FK_BodyParts_BodyPartsInfo" Association="Self.FK_BodyParts_BodyPartsInfo">
+      <End Role="BodyPartsInfo" EntitySet="BodyPartsInfoes" />
+      <End Role="BodyParts" EntitySet="BodyParts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BodyParts_Patients" Association="Self.FK_BodyParts_Patients">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="BodyParts" EntitySet="BodyParts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
