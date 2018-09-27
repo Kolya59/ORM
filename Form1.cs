@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using System.Windows.Forms;
 
@@ -192,11 +193,14 @@
                    return;
                }
 
+               var deletedObject = (BodyPart)e.Row.Tag;
+
                // Добавление удаляемого объекта к контексту
-               deleteContext.BodyParts.Attach((BodyPart)e.Row.Tag);
+               deleteContext.BodyParts.Attach(deletedObject);
 
                // Удаление найденного объекта
-               deleteContext.BodyParts.Remove((BodyPart)e.Row.Tag);
+               deleteContext.BodyParts.Remove(deletedObject);
+               deleteContext.Entry(deletedObject).State = EntityState.Deleted;
 
                // Сохранение изменений
                deleteContext.SaveChanges();
@@ -213,11 +217,14 @@
                     return;
                 }
 
+                var deletedObject = (BodyPartsInfo)e.Row.Tag;
+
+                // BUG: не удаляет связанные объекты
                 // Добавление удаляемого объекта к контексту
-                deleteContext.BodyPartsInfoes.Attach((BodyPartsInfo)e.Row.Tag);
+                deleteContext.BodyPartsInfoes.Attach(deletedObject);
 
                 // Проверка наличия частей тела данного типа
-                if (((BodyPartsInfo)e.Row.Tag).BodyParts.Count != 0)
+                if (deleteContext.BodyParts.Count(t => t.type == deletedObject.type) != 0)
                 {
                     e.Row.ErrorText = @"Вы не можете удалить информацию о части тела, не удалив все ее экземпляры";
                     e.Cancel = true;

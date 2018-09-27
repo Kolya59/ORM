@@ -1,16 +1,17 @@
-using System;
-using System.Windows.Forms;
-
 namespace ORM
 {
-    static class Program
+    using System;
+    using System.Windows.Forms;
+
+    public static class Program
     {
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
-        { EFlogger.EntityFramework6.EFloggerFor6.Initialize();
+        public static void Main()
+        {
+            EFlogger.EntityFramework6.EFloggerFor6.Initialize();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -18,4 +19,3 @@ namespace ORM
         }
     }
 }
-
